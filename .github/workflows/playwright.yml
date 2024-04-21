@@ -58,6 +58,12 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: always()
         with:
+          name: junit-results
+          path: junit-results/
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
           name: allure-test-results
           path: allure-report/
 
