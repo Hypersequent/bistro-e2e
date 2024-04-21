@@ -61,6 +61,32 @@ test('Navigation bar items', async ({ page }) => {
 
 test('Menu page content', async ({ page }) => {
 	const menu = new Menu(page)
-
 	await menu.goto()
+
+	const pizzaMenu = await menu.getPizzaMenu()
+	let tabs = await menu.getTabs()
+	expect(tabs).toEqual([
+		{ text: 'PIZZAS', isActive: true },
+		{ text: 'DRINKS', isActive: false },
+		{ text: 'DESSERTS', isActive: false },
+	])
+	expect(pizzaMenu.length).toBeGreaterThan(0)
+
+	const drinksMenu = await menu.getOtherMenu('drinks')
+	tabs = await menu.getTabs()
+	expect(tabs).toEqual([
+		{ text: 'PIZZAS', isActive: false },
+		{ text: 'DRINKS', isActive: true },
+		{ text: 'DESSERTS', isActive: false },
+	])
+	expect(drinksMenu.length).toBeGreaterThan(0)
+
+	const dessertsMenu = await menu.getOtherMenu('desserts')
+	tabs = await menu.getTabs()
+	expect(tabs).toEqual([
+		{ text: 'PIZZAS', isActive: false },
+		{ text: 'DRINKS', isActive: false },
+		{ text: 'DESSERTS', isActive: true },
+	])
+	expect(dessertsMenu.length).toBeGreaterThan(0)
 })
