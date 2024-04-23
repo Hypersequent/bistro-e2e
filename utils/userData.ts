@@ -1,11 +1,11 @@
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker'
 
 export class UserData {
-    public getUsername(): string {
-        return faker.internet.userName() + faker.string.numeric(2);
-    }
+	public getName(): string {
+		return faker.person.fullName()
+	}
 
-    public getPassword(): string {
-        return faker.internet.password();
-    }
+	public getAddress(): string {
+		return faker.location.streetAddress()
+	}
 }
