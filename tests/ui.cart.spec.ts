@@ -101,6 +101,7 @@ test('Test checkout', async ({ page }) => {
 
 	const cart = new Cart(page)
 	await cart.openCart()
+	await page.waitForTimeout(1000)
 	await cart.checkout()
 
 	const checkout = new Checkout(page)
@@ -115,7 +116,7 @@ test('Test checkout', async ({ page }) => {
 
 	const paymentMethodSelect = await checkout.getPaymentMethodSelect()
 	expect(await paymentMethodSelect.locator('option').allInnerTexts()).toEqual(paymentMethods)
-	await paymentMethodSelect.selectOption({ label: 'PayPal' })
+	await paymentMethodSelect.selectOption({ label: 'Cash on Delivery' })
 
 	await checkout.placeOrderButton.click()
 })

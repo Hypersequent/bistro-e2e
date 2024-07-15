@@ -12,7 +12,7 @@ export class Cart {
 		this.page = page
 		this.cartButton = page.locator(`div.my-cart-icon`)
 		this.closeCartButton = page.locator(`#cart button[data-dismiss="modal"]`).first()
-		this.checkoutButton = page.locator(`#cart a[href="/food-delivery-demo/checkout"]`)
+		this.checkoutButton = page.locator(`#cart a[href$="/checkout"]`)
 	}
 
 	async openCart() {

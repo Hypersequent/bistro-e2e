@@ -34,7 +34,7 @@ export class Welcome {
 		const linkItemsObj = await Promise.all(
 			items.map(async (item) => {
 				const text = (await item.innerText()).trim()
-				const isActive = (await item.getAttribute('class')) === 'active'
+				const isActive = (await item.getAttribute('class'))?.includes('active') ?? false
 
 				return {
 					text,

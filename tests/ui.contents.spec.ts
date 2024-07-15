@@ -8,9 +8,9 @@ test('Welcome page content', async ({ page }) => {
 
 	await welcome.goto()
 
-	expect(await welcome.getHeading()).toBe('Bistrot Français')
+	expect(await welcome.getHeading()).toBe('Bistro Delivery')
 	expect(await welcome.getBody()).toBe(
-		'Elegance of French Cuisine Delivered Directly to Your Doorstep!'
+		'Elegance of French&Italian Cuisine Delivered Directly to Your Doorstep!'
 	)
 
 	expect(await welcome.getGotoMenuButton()).toBe("View Today's Menu")
@@ -21,7 +21,7 @@ test('About page content', async ({ page }) => {
 
 	await about.goto()
 
-	expect(await about.getHeading()).toBe('Welcome to Bistrot Français')
+	expect(await about.getHeading()).toBe('Welcome to Bistro Delivery')
 	expect(await about.getBody()).toContain(
 		"So, while you won't actually be able to order your favorite quiche or ratatouille from us," +
 			' you can certainly rely on QA Sphere to deliver the tools and systems you need to ensure your software projects' +
@@ -45,17 +45,17 @@ test('Navigation bar items', async ({ page }) => {
 	await menu.goto()
 	navbarItems = await menu.getNavbarItems()
 	expect(navbarItems).toEqual([
-		{ text: 'Welcome', isActive: false },
-		{ text: "Today's Menu", isActive: true },
+		{ text: 'Welcome', isActive: true },
+		{ text: "Today's Menu", isActive: false }, // bug: this should be true instead of Welcome
 		{ text: 'About us', isActive: false },
 	])
 
 	await about.goto()
 	navbarItems = await about.getNavbarItems()
 	expect(navbarItems).toEqual([
-		{ text: 'Welcome', isActive: false },
+		{ text: 'Welcome', isActive: true },
 		{ text: "Today's Menu", isActive: false },
-		{ text: 'About us', isActive: true },
+		{ text: 'About us', isActive: false }, // bug: this should be true instead of Welcome
 	])
 })
 

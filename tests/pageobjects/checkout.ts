@@ -1,7 +1,7 @@
 import { Locator, Page, expect } from '@playwright/test'
 import { CartResponseSchema } from './cart'
 
-export const paymentMethods = ['Credit Card', 'Debit Card', 'PayPal']
+export const paymentMethods = ['Cash on Delivery', 'Card Payment on Delivery']
 
 export class Checkout {
 	page: Page

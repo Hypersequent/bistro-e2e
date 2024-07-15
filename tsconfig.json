@@ -12,11 +12,5 @@
 		"moduleResolution": "node",
 		"types": ["node"]
 	},
-	"include": "**/*.ts",
-	"exclude": ["node_modules"],
-	"references": [
-		{
-			"path": "./tsconfig.json"
-		}
-	]
+	"exclude": ["node_modules"]
 }
