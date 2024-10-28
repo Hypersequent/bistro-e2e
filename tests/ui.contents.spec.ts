@@ -3,20 +3,9 @@ import { Welcome } from './pageobjects/welcome'
 import { About } from './pageobjects/about'
 import { Menu } from './pageobjects/menu'
 
-test('Welcome page content', async ({ page }) => {
-	const welcome = new Welcome(page)
-
-	await welcome.goto()
-
-	expect(await welcome.getHeading()).toBe('Bistro Delivery')
-	expect(await welcome.getBody()).toBe(
-		'Elegance of French&Italian Cuisine Delivered Directly to Your Doorstep!'
-	)
-
-	expect(await welcome.getGotoMenuButton()).toBe("View Today's Menu")
-})
-
-test('About page content', async ({ page }) => {
+test('BD-057: User should see the content according to the About Us information', async ({
+	page,
+}) => {
 	const about = new About(page)
 
 	await about.goto()
@@ -29,7 +18,7 @@ test('About page content', async ({ page }) => {
 	)
 })
 
-test('Navigation bar items', async ({ page }) => {
+test('BD-058: Correct display of blocks and buttons in the navbar', async ({ page }) => {
 	const welcome = new Welcome(page)
 	const about = new About(page)
 	const menu = new Menu(page)
@@ -59,7 +48,9 @@ test('Navigation bar items', async ({ page }) => {
 	])
 })
 
-test('Menu page content', async ({ page }) => {
+test('BD-059: User should see the Pizzas list by default on the Todays Menu block', async ({
+	page,
+}) => {
 	const menu = new Menu(page)
 	await menu.goto()
 
@@ -89,4 +80,19 @@ test('Menu page content', async ({ page }) => {
 		{ text: 'DESSERTS', isActive: true },
 	])
 	expect(dessertsMenu.length).toBeGreaterThan(0)
+})
+
+test('BD-060: User should see the Todays Menu block after clicking the Todays Menu button in the Welcome banner', async ({
+	page,
+}) => {
+	const welcome = new Welcome(page)
+
+	await welcome.goto()
+
+	expect(await welcome.getHeading()).toBe('Bistro Delivery')
+	expect(await welcome.getBody()).toBe(
+		'Elegance of French&Italian Cuisine Delivered Directly to Your Doorstep!'
+	)
+
+	expect(await welcome.getGotoMenuButton()).toBe("View Today's Menu")
 })
