@@ -26,9 +26,9 @@ The system shall provide a consistent, user-friendly, and accessible navigation 
 - Today's Menu link
 - About Us link
 - Cart icon with counter
+![Navigation requirement1](https://github.com/user-attachments/assets/5f7d158b-4b0d-48b9-8293-f2f79487ae6d)
+![Navigation requirement2](https://github.com/user-attachments/assets/2aa8097c-3cb4-4972-9301-6a8018a52871)
 
-![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-1-1.webp)
-![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-1-2.webp)
 
 #### Navigation Behavior
 
@@ -81,8 +81,8 @@ Display:
 - Theme-compliant styling
 - Accessibility compliance
 - Responsive design implementation
-
-![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-2-1.webp)
+  
+![UI Requirements1](https://github.com/user-attachments/assets/4514d7b1-1bdb-43d2-b270-1309d5323b40)
 
 ## Menu Display Requirements {#req-3-menu}
 
@@ -103,7 +103,8 @@ Tabs:
 - Drinks tab
 - Desserts tab
 
-![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-3-1.webp)
+![Menu Display Requirements1](https://github.com/user-attachments/assets/135a6b9c-d664-4e29-affb-907e17e7d604)
+
 
 #### Product Display
 
@@ -143,7 +144,8 @@ Content:
 - Company information
 - Brand story
 - Contact details if applicable
-  ![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-4-1.webp)
+
+![About Us Page Requirements1](https://github.com/user-attachments/assets/c7d729b6-7fac-4998-85bd-4cdf6f420ab7)
 
 #### Page Navigation
 
@@ -191,7 +193,7 @@ Elements:
 - Empty cart state
 - Checkout button
 
-![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-5-1.webp)
+![Cart Operations](https://github.com/user-attachments/assets/68c40be1-341c-435f-bce0-e5cc9aa56949)
 
 ### UI Requirements
 
