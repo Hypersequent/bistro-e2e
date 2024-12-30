@@ -27,8 +27,8 @@ The system shall provide a consistent, user-friendly, and accessible navigation 
 - About Us link
 - Cart icon with counter
 
-![Navigation requirement](/docs/requirements/manual-testing/images/req-1-1.webp)
-![Navigation requirement](/docs/requirements/manual-testing/images/req-1-2.webp)
+![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-1-1.webp)
+![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-1-2.webp)
 
 #### Navigation Behavior
 
@@ -82,7 +82,7 @@ Display:
 - Accessibility compliance
 - Responsive design implementation
 
-![Navigation requirement](/docs/requirements/manual-testing/images/req-2-1.webp)
+![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-2-1.webp)
 
 ## Menu Display Requirements {#req-3-menu}
 
@@ -103,7 +103,7 @@ Tabs:
 - Drinks tab
 - Desserts tab
 
-![Navigation requirement](/docs/requirements/manual-testing/images/req-3-1.webp)
+![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-3-1.webp)
 
 #### Product Display
 
@@ -143,7 +143,7 @@ Content:
 - Company information
 - Brand story
 - Contact details if applicable
-  ![Navigation requirement](/docs/requirements/manual-testing/images/req-4-1.webp)
+  ![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-4-1.webp)
 
 #### Page Navigation
 
@@ -191,7 +191,7 @@ Elements:
 - Empty cart state
 - Checkout button
 
-![Navigation requirement](/docs/requirements/manual-testing/images/req-5-1.webp)
+![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-5-1.webp)
 
 ### UI Requirements
 
@@ -224,7 +224,7 @@ Form Fields:
 - Order summary display
 - Form validation
 
-![Navigation requirement](/docs/requirements/manual-testing/images/req-6-1.webp)
+![Navigation requirement](https://qasphere-example.s3-eu-west-1.amazonaws.com/qasphere-example/example/bistro/images/301220241426/req-6-1.webp)
 
 #### Order Processing
 
