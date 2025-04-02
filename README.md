@@ -12,7 +12,7 @@ This repository contains end-to-end tests for [Bistro Delivery](https://github.c
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Hypersequent/bistro-e2e.git
+   git clone git@github.com:Hypersequent/bistro-e2e.git
    cd bistro-e2e
    ```
 
