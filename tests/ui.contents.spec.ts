@@ -3,7 +3,7 @@ import { Welcome } from './pageobjects/welcome'
 import { About } from './pageobjects/about'
 import { Menu } from './pageobjects/menu'
 
-test('BD-057: User should see the content according to the About Us information', async ({
+test('BD-055: User should see the content according to the About Us information', async ({
 	page,
 }) => {
 	const about = new About(page)
@@ -18,7 +18,7 @@ test('BD-057: User should see the content according to the About Us information'
 	)
 })
 
-test('BD-058: Correct display of blocks and buttons in the navbar', async ({ page }) => {
+test('BD-026: Correct display of blocks and buttons in the navbar', async ({ page }) => {
 	const welcome = new Welcome(page)
 	const about = new About(page)
 	const menu = new Menu(page)
@@ -48,7 +48,7 @@ test('BD-058: Correct display of blocks and buttons in the navbar', async ({ pag
 	])
 })
 
-test('BD-059: User should see the Pizzas list by default on the Todays Menu block', async ({
+test('BD-038: User should see the Pizzas list by default on the Todays Menu block', async ({
 	page,
 }) => {
 	const menu = new Menu(page)
@@ -82,7 +82,7 @@ test('BD-059: User should see the Pizzas list by default on the Todays Menu bloc
 	expect(dessertsMenu.length).toBeGreaterThan(0)
 })
 
-test('BD-060: User should see the Todays Menu block after clicking the Todays Menu button in the Welcome banner', async ({
+test('BD-052: User should see the Todays Menu block after clicking the Todays Menu button in the Welcome banner', async ({
 	page,
 }) => {
 	const welcome = new Welcome(page)

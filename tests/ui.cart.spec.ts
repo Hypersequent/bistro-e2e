@@ -3,7 +3,7 @@ import { Menu } from './pageobjects/menu'
 import { Cart } from './pageobjects/cart'
 import { Checkout, paymentMethods } from './pageobjects/checkout'
 
-test('BD-055: User should see product list according the cart on the Checkout page', async ({
+test('BD-023: User should see product list according the cart on the Checkout page', async ({
 	page,
 }) => {
 	const menu = new Menu(page)
@@ -75,7 +75,7 @@ test('BD-055: User should see product list according the cart on the Checkout pa
 	expect(cartResponse).toEqual(expectedCartResponse)
 })
 
-test('BD-056: User should place the order successfully after entering valid data in all required fields and selecting the "Cash" payment', async ({
+test('BD-022: User should place the order successfully after entering valid data in all required fields and selecting the "Cash" payment', async ({
 	page,
 }) => {
 	const menu = new Menu(page)
