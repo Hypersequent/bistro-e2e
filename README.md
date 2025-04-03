@@ -2,10 +2,7 @@
 
 This repository contains end-to-end tests for [Bistro Delivery](https://github.com/hypersequent/bistro), implemented using [Playwright](https://playwright.dev/).
 
-## Prerequisites
-
-- Node.js 20.x or higher
-- npm 10.x or higher
+Prerequisites: Node.js 20+ (with npm)
 
 ## Getting Started
 
@@ -44,16 +41,33 @@ npm run test               # Run tests in Chromium
 npm run test-head         # Run tests in headed mode
 ```
 
-### Browser-Specific Tests
+### Upload testing results to QA Sphere 
 
+1. Add your QA Sphere credentials to the .env file:
+```
+QAS_TOKEN=<QA Sphere API Token>
+# Get your token in QA Sphere -> Settings -> API Keys
+
+QAS_URL=<QA Sphere Company URL>
+# Example: https://qasdemo.eu2.qasphere.com
+```
+
+2. Upload results:
+```bash
+npx qas-cli junit-upload --attachments junit-results/results.xml
+```
+
+
+### Additional Commands 
+
+Different browsers: 
 ```bash
 npm run chromium          # Run tests in Chromium
 npm run firefox           # Run tests in Firefox
 npm run webkit           # Run tests in WebKit
 ```
 
-### Test Report
-
+Playwright report: 
 ```bash
 npm run play-report      # Open Playwright HTML report
 ```
