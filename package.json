@@ -5,20 +5,18 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"allure-report": "allure generate ./allure-results --clean",
-		"chromium": "npx playwright test --project=chromium",
 		"clean": "rimraf allure-results && rimraf allure-report && rimraf test-results && rimraf playwright-report && rimraf junit-results && rimraf lighthouse",
-		"firefox": "npm run clean && npx playwright test --project=firefox",
 		"format": "prettier --write .",
 		"install-deps": "npx playwright install-deps",
 		"lint": "prettier --check . && eslint .",
-		"open-report": "npm run allure-report && allure open ./allure-report",
 		"play-report": "npx playwright show-report",
 		"prepare": "husky",
 		"reinstall": "npx playwright install",
-		"test": "npm run clean && npx playwright test --project=chromium",
-		"test-head": "npm run clean && npx playwright test --headed",
-		"webkit": "npx playwright test --project=webkit"
+		"test": "npm run chromium",
+		"test-head": "npm run chromium -- --headed",
+		"chromium": "npm run clean && npx playwright test --project=chromium",
+		"firefox": "npm run clean && npx playwright test --project=firefox",
+		"webkit": "npm run clean && npx playwright test --project=webkit"
 	},
 	"repository": {
 		"type": "git",
@@ -27,7 +25,6 @@
 	"keywords": [
 		"playwright",
 		"playwright-test",
-		"allure report",
 		"web test automation"
 	],
 	"author": "Hypersequent",
@@ -42,14 +39,10 @@
 		"@types/node": "^20.14.10",
 		"@typescript-eslint/eslint-plugin": "^7.16.0",
 		"@typescript-eslint/parser": "^7.16.0",
-		"allure-commandline": "^2.29.0",
-		"allure-playwright": "^2.15.1",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
 		"husky": "^9.0.11",
-		"lighthouse": "^11.7.1",
 		"lint-staged": "^15.2.7",
-		"playwright-lighthouse": "^4.0.0",
 		"prettier": "^3.3.3",
 		"tslib": "^2.6.3",
 		"typescript": "^5.5.3"
@@ -57,7 +50,7 @@
 	"dependencies": {
 		"@faker-js/faker": "^8.4.1",
 		"dotenv": "^16.4.5",
-		"rimraf": "^5.0.9",
+		"rimraf": "^6.0.1",
 		"zod": "^3.22.4"
 	},
 	"lint-staged": {

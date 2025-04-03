@@ -37,7 +37,6 @@ const config: PlaywrightTestConfig = {
 		['dot'],
 		['line'],
 		['html', { open: 'never' }],
-		['allure-playwright'],
 		['junit', { outputFile: './junit-results/results.xml' }],
 	],
 
