@@ -44,21 +44,23 @@ npm run test-head         # Run tests in headed mode
 ### Upload testing results to QA Sphere 
 
 1. Add your QA Sphere credentials to the .env file:
-```
-QAS_TOKEN=<QA Sphere API Token>
-# Get your token in QA Sphere -> Settings -> API Keys
+   
+  ```bash
+  QAS_TOKEN=<QA Sphere API Token>
+  # Get your token in QA Sphere -> Settings -> API Keys
 
-QAS_URL=<QA Sphere Company URL>
-# Example: https://qasdemo.eu2.qasphere.com
-```
+  QAS_URL=<QA Sphere Company URL>
+  # Example: https://qasdemo.eu2.qasphere.com
+  ```
 
 2. Upload results:
-```bash
-npx qas-cli junit-upload --attachments junit-results/results.xml
-```
+
+  ```bash
+  npx qas-cli junit-upload --attachments junit-results/results.xml
+  ```
 
 
-### Additional Commands 
+# Additional Commands 
 
 Different browsers: 
 ```bash
