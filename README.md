@@ -37,41 +37,43 @@ Prerequisites: Node.js 20+ (with npm)
 ### Basic Test Execution
 
 ```bash
-npm run test               # Run tests in Chromium
+npm run test              # Run tests in Chromium
 npm run test-head         # Run tests in headed mode
 ```
 
-### Upload testing results to QA Sphere 
+### Upload testing results to QA Sphere
 
 1. Add your QA Sphere credentials to the .env file:
-   
-  ```bash
-  QAS_TOKEN=<QA Sphere API Token>
-  # Get your token in QA Sphere -> Settings -> API Keys
 
-  QAS_URL=<QA Sphere Company URL>
-  # Example: https://qasdemo.eu2.qasphere.com
-  ```
+   ```bash
+   QAS_TOKEN=<QA Sphere API Token>
+   # Get your token in QA Sphere -> Settings -> API Keys
+
+   QAS_URL=<QA Sphere Company URL>
+   # Example: https://qasdemo.eu2.qasphere.com
+   ```
 
 2. Upload results:
 
-  ```bash
-  npx qas-cli junit-upload --attachments junit-results/results.xml
-  ```
+   ```bash
+   npx qas-cli junit-upload --attachments junit-results/results.xml                 # For JUnit XML
+   npx qas-cli playwright-json-upload --attachments playwright-report/results.json  # For Playwright JSON
+   ```
 
+# Additional Commands
 
-# Additional Commands 
+Different browsers:
 
-Different browsers: 
 ```bash
 npm run chromium          # Run tests in Chromium
 npm run firefox           # Run tests in Firefox
-npm run webkit           # Run tests in WebKit
+npm run webkit            # Run tests in WebKit
 ```
 
-Playwright report: 
+Playwright report:
+
 ```bash
-npm run play-report      # Open Playwright HTML report
+npm run play-report       # Open Playwright HTML report
 ```
 
 ## License

@@ -26,9 +26,8 @@ The system shall provide a consistent, user-friendly, and accessible navigation 
 - Today's Menu link
 - About Us link
 - Cart icon with counter
-![Navigation requirement1](https://github.com/user-attachments/assets/5f7d158b-4b0d-48b9-8293-f2f79487ae6d)
-![Navigation requirement2](https://github.com/user-attachments/assets/2aa8097c-3cb4-4972-9301-6a8018a52871)
-
+  ![Navigation requirement1](https://github.com/user-attachments/assets/5f7d158b-4b0d-48b9-8293-f2f79487ae6d)
+  ![Navigation requirement2](https://github.com/user-attachments/assets/2aa8097c-3cb4-4972-9301-6a8018a52871)
 
 #### Navigation Behavior
 
@@ -81,7 +80,7 @@ Display:
 - Theme-compliant styling
 - Accessibility compliance
 - Responsive design implementation
-  
+
 ![UI Requirements1](https://github.com/user-attachments/assets/4514d7b1-1bdb-43d2-b270-1309d5323b40)
 
 ## Menu Display Requirements {#req-3-menu}
@@ -104,7 +103,6 @@ Tabs:
 - Desserts tab
 
 ![Menu Display Requirements1](https://github.com/user-attachments/assets/135a6b9c-d664-4e29-affb-907e17e7d604)
-
 
 #### Product Display
 
