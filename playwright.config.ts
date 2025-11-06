@@ -5,6 +5,9 @@ if (typeof process.env.DEMO_BASE_URL === 'undefined') {
 	throw new Error('DEMO_BASE_URL is not set')
 }
 
+// Ensure DEMO_BASE_URL does NOT have a trailing slash
+process.env.DEMO_BASE_URL = process.env.DEMO_BASE_URL.replace(/\/+$/, '')
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */

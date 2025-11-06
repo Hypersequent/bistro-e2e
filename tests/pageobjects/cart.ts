@@ -25,7 +25,7 @@ export class Cart {
 
 	async checkout() {
 		await this.checkoutButton.click()
-		await this.page.waitForURL(process.env.DEMO_BASE_URL + 'checkout')
+		await this.page.waitForURL(process.env.DEMO_BASE_URL + '/checkout')
 	}
 
 	async getCartItems() {

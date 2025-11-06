@@ -15,7 +15,7 @@ export class Menu {
 	}
 
 	async goto() {
-		await this.page.goto(process.env.DEMO_BASE_URL)
+		await this.page.goto(process.env.DEMO_BASE_URL + '/')
 	}
 
 	async getNavbarItems() {

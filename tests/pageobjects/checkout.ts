@@ -19,7 +19,7 @@ export class Checkout {
 	}
 
 	async getOrderItems() {
-		expect(this.page.url()).toBe(process.env.DEMO_BASE_URL + 'checkout')
+		expect(this.page.url()).toBe(process.env.DEMO_BASE_URL + '/checkout')
 		await new Promise((resolve) => setTimeout(resolve, 500))
 
 		const rows = await this.page.locator(`table > tbody > tr`).all()
