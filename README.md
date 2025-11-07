@@ -19,15 +19,7 @@ Prerequisites: Node.js 20+ (with npm)
    npm install
    ```
 
-3. Create `.env` file in the project root:
-
-   ```bash
-   DEMO_BASE_URL='https://hypersequent.github.io/bistro/'
-   ```
-
-   See `.env.example` for reference.
-
-4. Install Playwright browsers and dependencies:
+3. Install Playwright browsers and dependencies:
    ```bash
    npx playwright install --with-deps
    ```
@@ -78,7 +70,7 @@ npm run play-report       # Open Playwright HTML report
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the 0BSD License - see the [LICENSE](LICENSE) file for details.
 
 ---
 

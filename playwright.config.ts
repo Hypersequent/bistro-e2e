@@ -1,8 +1,9 @@
 import { PlaywrightTestConfig, devices } from '@playwright/test'
 import 'dotenv/config'
 
+// Set default DEMO_BASE_URL if not provided
 if (typeof process.env.DEMO_BASE_URL === 'undefined') {
-	throw new Error('DEMO_BASE_URL is not set')
+	process.env.DEMO_BASE_URL = 'https://hypersequent.github.io/bistro/'
 }
 
 // Ensure DEMO_BASE_URL does NOT have a trailing slash

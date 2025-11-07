@@ -28,7 +28,7 @@
 		"web test automation"
 	],
 	"author": "Hypersequent",
-	"license": "MIT",
+	"license": "0BSD",
 	"bugs": {
 		"url": "https://github.com/Hypersequent/bistro-e2e/issues"
 	},
