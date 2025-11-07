@@ -15,7 +15,9 @@ export class Menu {
 	}
 
 	async goto() {
-		await this.page.goto(process.env.DEMO_BASE_URL + '/')
+		await this.page.goto(process.env.DEMO_BASE_URL + '/#menu')
+		// Wait for the navbar active state to update based on scroll position
+		await this.page.waitForTimeout(100)
 	}
 
 	async getNavbarItems() {

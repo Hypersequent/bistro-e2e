@@ -49,17 +49,17 @@ test(
 		await menu.goto()
 		navbarItems = await menu.getNavbarItems()
 		expect(navbarItems).toEqual([
-			{ text: 'Welcome', isActive: true },
-			{ text: "Today's Menu", isActive: false }, // bug: this should be true instead of Welcome
+			{ text: 'Welcome', isActive: false },
+			{ text: "Today's Menu", isActive: true },
 			{ text: 'About us', isActive: false },
 		])
 
 		await about.goto()
 		navbarItems = await about.getNavbarItems()
 		expect(navbarItems).toEqual([
-			{ text: 'Welcome', isActive: true },
+			{ text: 'Welcome', isActive: false },
 			{ text: "Today's Menu", isActive: false },
-			{ text: 'About us', isActive: false }, // bug: this should be true instead of Welcome
+			{ text: 'About us', isActive: true },
 		])
 	}
 )
