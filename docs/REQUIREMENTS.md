@@ -26,12 +26,16 @@ requirements too, but is exercised mainly through manual/visual test cases.
 
 ## 2. How to read this document
 
-- **Requirement IDs** use the form **`FR-XXX: Short Title`**, where `XXX` is a unique mnemonic for
-  the requirement (not a running number). Example: `FR-ADD: Add Items to the Cart`.
+- **Requirement IDs** use the form **`XXX: Short Title`**, where `XXX` is a unique mnemonic for
+  the requirement (not a running number). Example: `ADD: Add Items to the Cart`.
 - **Priority** is one of `Critical`, `High`, `Medium`, `Low`.
 - **Acceptance criteria** are the testable conditions a requirement must satisfy.
-- **Covered by** lists the test cases (`BD-###`) that verify the requirement. `BD-001…BD-045` are
-  manual; `BD-046…BD-060` are automated.
+- **Covered by** lists the source test cases (`BD-###`) that verify the requirement. Manual source
+  and generated template-filled cases occupy `BD-001…BD-056`; automated source cases occupy
+  `BD-057…BD-071`.
+- **Template-filled cases** are generated during import from four manual templates:
+  `BD-013` generates `BD-014…BD-016`; `BD-020` generates `BD-021…BD-023`; `BD-028` generates
+  `BD-029…BD-031`; `BD-041` generates `BD-042…BD-043`.
 - Test cases link back here by URL; the canonical hosted location used in those links is
   `https://github.com/Hypersequent/bistro-e2e/blob/main/docs/REQUIREMENTS.md`.
 
@@ -41,7 +45,7 @@ requirements too, but is exercised mainly through manual/visual test cases.
 
 ### 3.1 Navigation & Layout
 
-#### FR-NAV: Navbar links route to the correct pages
+#### NAV: Navbar links route correctly
 
 - **Priority:** High
 - **Description:** The top navigation bar shall expose Welcome, Today's Menu, and About us links
@@ -51,9 +55,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - "Today's Menu" targets the `#menu` section of the home page.
   - "About us" navigates to `/bistro/about`.
   - The navbar (and footer) are present on Home, Menu, About, and Checkout.
-- **Covered by:** BD-001, BD-006, BD-046
+- **Covered by:** BD-001, BD-006, BD-057
 
-#### FR-LOGO: Logo returns to the home page
+#### LOGO: Logo returns home
 
 - **Priority:** Medium
 - **Description:** Clicking the Bistro Delivery logo shall return the user to the home page from
@@ -63,7 +67,7 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - Clicking it from About (or Checkout) loads the home page with the hero and menu.
 - **Covered by:** BD-002
 
-#### FR-MENULINK: "Today's Menu" scrolls to the menu section
+#### MENULINK: Menu link scrolls to menu
 
 - **Priority:** Medium
 - **Description:** The "Today's Menu" navigation link and the hero "View Today's Menu" button shall
@@ -73,7 +77,7 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - No full page reload is required when already on the home page.
 - **Covered by:** BD-003
 
-#### FR-FOOTER: Footer shows the QA Sphere attribution and link
+#### FOOTER: Footer shows QA Sphere link
 
 - **Priority:** Low
 - **Description:** The live site footer shall display the Bistro Delivery / QA Sphere attribution
@@ -83,7 +87,7 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - The footer links to `github.com/Hypersequent/bistro`.
 - **Covered by:** BD-004
 
-#### FR-TRANSITION: Page navigation uses smooth view transitions
+#### TRANSITION: Navigation uses smooth transitions
 
 - **Priority:** Low
 - **Description:** On browsers that support the View Transitions API, navigation between pages
@@ -95,7 +99,7 @@ requirements too, but is exercised mainly through manual/visual test cases.
 
 ### 3.2 Responsive & Mobile Navigation
 
-#### FR-RESPONSIVE: Navbar collapses into a hamburger menu on narrow viewports
+#### RESPONSIVE: Navbar collapses on narrow screens
 
 - **Priority:** High
 - **Description:** On narrow (mobile) viewports the navbar links shall collapse behind a hamburger
@@ -106,7 +110,7 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - Each link navigates correctly from the expanded mobile menu.
 - **Covered by:** BD-007, BD-008, BD-009
 
-#### FR-MOBILE: Pages reflow cleanly on mobile viewports
+#### MOBILE: Pages reflow on mobile
 
 - **Priority:** Medium
 - **Description:** All pages shall remain usable and visually correct on a typical mobile viewport
@@ -118,7 +122,7 @@ requirements too, but is exercised mainly through manual/visual test cases.
 
 ### 3.3 Menu
 
-#### FR-MENU: Menu presents three categorized tabs with Pizzas active by default
+#### MENU: Menu shows tabs with Pizzas active
 
 - **Priority:** High
 - **Description:** The home page menu shall present Pizzas, Drinks, and Desserts tabs, with Pizzas
@@ -128,7 +132,7 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - Each category lists six items (18 total).
 - **Covered by:** BD-012
 
-#### FR-TABS: Selecting a tab reveals its category and marks it active
+#### TABS: Tabs reveal and mark categories
 
 - **Priority:** High
 - **Description:** Selecting a menu tab shall reveal only that category's items and mark the tab as
@@ -137,9 +141,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - The selected tab gains `button--is-active`; others lose it.
   - The matching panel gains `menu--is-visible`; others lose it.
   - Clicking a tab does not navigate (default prevented).
-- **Covered by:** BD-013, BD-047
+- **Covered by:** BD-013, BD-058
 
-#### FR-CARD: Menu item card shows title, price, description and Add-to-cart
+#### CARD: Menu cards show item details
 
 - **Priority:** High
 - **Description:** Each menu item shall display its title, price (as `$<integer>`), description,
@@ -148,9 +152,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - Title, price, and description render for every item.
   - Prices and titles match the menu data per category.
   - Every card has a functional Add-to-cart button.
-- **Covered by:** BD-014, BD-048
+- **Covered by:** BD-017, BD-059
 
-#### FR-IMAGE: Pizzas display images; drinks and desserts display none
+#### IMAGE: Pizzas show images only
 
 - **Priority:** Medium
 - **Description:** Pizza items shall display a product image; drinks and desserts shall render
@@ -158,9 +162,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
 - **Acceptance criteria:**
   - Each pizza card shows a product thumbnail.
   - Drink and dessert cards render correctly with no image placeholder.
-- **Covered by:** BD-015
+- **Covered by:** BD-018
 
-#### FR-ANIM: Menu content animates on scroll
+#### ANIM: Menu animates on scroll
 
 - **Priority:** Low
 - **Description:** Menu content shall fade/animate into view on scroll (AOS) without affecting
@@ -168,11 +172,11 @@ requirements too, but is exercised mainly through manual/visual test cases.
 - **Acceptance criteria:**
   - Cards animate into view as the section scrolls into the viewport.
   - Content remains fully readable and interactive after animating.
-- **Covered by:** BD-016
+- **Covered by:** BD-019
 
 ### 3.4 Cart
 
-#### FR-ADD: Add items to the cart
+#### ADD: Add items to cart
 
 - **Priority:** Critical
 - **Description:** Users shall be able to add menu items to the cart; re-adding the same item shall
@@ -181,9 +185,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - First add creates a line with quantity 1.
   - Subsequent adds of the same item increment that line's quantity.
   - Items from any category can be added.
-- **Covered by:** BD-017, BD-050
+- **Covered by:** BD-020, BD-061
 
-#### FR-BADGE: Cart badge reflects the total item quantity
+#### BADGE: Cart badge shows total quantity
 
 - **Priority:** High
 - **Description:** The cart icon badge shall show the sum of all item quantities and update
@@ -191,9 +195,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
 - **Acceptance criteria:**
   - Badge equals the sum of all line quantities (not the number of distinct items).
   - Badge updates immediately when items are added/removed or quantities change.
-- **Covered by:** BD-018, BD-049
+- **Covered by:** BD-024, BD-060
 
-#### FR-TOTAL: Line and cart totals calculate correctly
+#### TOTAL: Totals calculate correctly
 
 - **Priority:** Critical
 - **Description:** Each line total shall equal `price × quantity` and the cart total shall equal
@@ -202,9 +206,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - Line total = price × quantity for each item.
   - Cart total (`[data-testid="cartTotal"]`) = sum of all line totals.
   - No decimals/rounding occur (integer prices and quantities).
-- **Covered by:** BD-019, BD-051
+- **Covered by:** BD-025, BD-062
 
-#### FR-MODAL: Cart modal opens and closes
+#### MODAL: Cart modal opens and closes
 
 - **Priority:** Medium
 - **Description:** The cart modal shall open from the cart icon and close via the ×, the Close
@@ -212,9 +216,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
 - **Acceptance criteria:**
   - Clicking the cart icon opens the "My cart" modal.
   - ×, Close, and backdrop click each dismiss the modal.
-- **Covered by:** BD-020
+- **Covered by:** BD-026
 
-#### FR-EMPTY: Empty cart shows a message and no checkout
+#### EMPTY: Empty cart shows a message
 
 - **Priority:** Medium
 - **Description:** When the cart is empty, the modal shall show an empty-state message and shall
@@ -222,11 +226,11 @@ requirements too, but is exercised mainly through manual/visual test cases.
 - **Acceptance criteria:**
   - Empty cart shows "No items in your cart".
   - No Checkout button is present while the cart is empty.
-- **Covered by:** BD-021
+- **Covered by:** BD-027
 
 ### 3.5 Quantity & Removal
 
-#### FR-QTY: Editing a quantity updates the line and totals
+#### QTY: Quantity edits update totals
 
 - **Priority:** High
 - **Description:** Setting a line quantity to a value greater than zero shall update that line and
@@ -234,9 +238,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
 - **Acceptance criteria:**
   - Entering a value > 0 updates the quantity, line total, and cart total.
   - The badge reflects the new total quantity.
-- **Covered by:** BD-022, BD-052
+- **Covered by:** BD-028, BD-063
 
-#### FR-ZERO: Quantity of zero, empty, or non-numeric removes the item
+#### ZERO: Invalid quantities remove items
 
 - **Priority:** High
 - **Description:** Setting a line quantity to 0, clearing it, or entering non-numeric text shall
@@ -245,29 +249,29 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - Quantity `0` removes the line.
   - Empty input removes the line (parsed as 0).
   - Non-numeric input removes the line (parsed as 0).
-- **Covered by:** BD-023, BD-024, BD-053
+- **Covered by:** BD-032, BD-033, BD-064
 
-#### FR-NEG: Negative quantities are ignored
+#### NEG: Negative quantities are ignored
 
 - **Priority:** Medium
 - **Description:** Entering a negative quantity shall leave the cart unchanged.
 - **Acceptance criteria:**
   - A negative value does not change the line quantity or totals.
   - The `min="1"` attribute discourages negatives via the UI.
-- **Covered by:** BD-025
+- **Covered by:** BD-034
 
-#### FR-REMOVE: The remove (X) button deletes a line
+#### REMOVE: Remove button deletes a line
 
 - **Priority:** High
 - **Description:** The red X button on a cart line shall remove that line and recompute the total.
 - **Acceptance criteria:**
   - Clicking X removes only that line.
   - The cart total and badge update accordingly.
-- **Covered by:** BD-026, BD-054
+- **Covered by:** BD-035, BD-065
 
 ### 3.6 Checkout
 
-#### FR-GUARD: Checkout is reachable only with a non-empty cart
+#### GUARD: Checkout requires a non-empty cart
 
 - **Priority:** High
 - **Description:** The checkout page shall be reachable only through the in-app Checkout action
@@ -275,9 +279,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
 - **Acceptance criteria:**
   - Direct navigation to `/bistro/checkout` with an empty cart redirects to the home page.
   - Checkout is reached via the cart modal's Checkout button when items are present.
-- **Covered by:** BD-027, BD-055
+- **Covered by:** BD-036, BD-066
 
-#### FR-SUMMARY: Checkout shows an order summary matching the cart
+#### SUMMARY: Checkout summary matches cart
 
 - **Priority:** High
 - **Description:** The checkout page shall present an order summary table that mirrors the cart
@@ -285,9 +289,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
 - **Acceptance criteria:**
   - Columns: Image, Title, Count, Total Price; one row per cart item plus a Total row.
   - Each row's count and total match the cart; the Total matches the cart total.
-- **Covered by:** BD-028, BD-029, BD-056
+- **Covered by:** BD-037, BD-038, BD-067
 
-#### FR-FORM: Checkout requires Name and Address
+#### FORM: Checkout requires name and address
 
 - **Priority:** High
 - **Description:** The checkout form shall require a Name and an Address before an order can be
@@ -295,9 +299,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
 - **Acceptance criteria:**
   - Name (`#customerName`) and Address (`#customerAddress`) are `required`.
   - Submitting with either empty is blocked by HTML5 validation.
-- **Covered by:** BD-030, BD-035
+- **Covered by:** BD-039, BD-046
 
-#### FR-PAYMENT: Checkout offers Cash and Card payment options
+#### PAYMENT: Checkout offers cash and card
 
 - **Priority:** Medium
 - **Description:** The payment method selector shall offer exactly Cash on Delivery (default) and
@@ -305,11 +309,11 @@ requirements too, but is exercised mainly through manual/visual test cases.
 - **Acceptance criteria:**
   - The select contains exactly those two options.
   - Cash on Delivery is the default selection.
-- **Covered by:** BD-031
+- **Covered by:** BD-040
 
 ### 3.7 Order Placement
 
-#### FR-ORDER: Placing an order shows a confirmation echoing the entered details
+#### ORDER: Order confirmation echoes details
 
 - **Priority:** Critical
 - **Description:** Submitting a valid checkout form shall replace the form with a success
@@ -318,9 +322,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - Heading reads exactly **"Your order placed successfully!"**.
   - The message echoes the entered name, address, and selected payment method.
   - Works for both Cash and Card payment methods.
-- **Covered by:** BD-032, BD-033, BD-034, BD-057, BD-058
+- **Covered by:** BD-041, BD-044, BD-045, BD-068, BD-069
 
-#### FR-NOCLEAR: Placing an order does not clear the cart
+#### NOCLEAR: Order does not clear cart
 
 - **Priority:** Medium
 - **Description:** After an order is placed, the cart shall retain its items (nothing is
@@ -328,11 +332,11 @@ requirements too, but is exercised mainly through manual/visual test cases.
 - **Acceptance criteria:**
   - The order summary remains visible above the confirmation.
   - Re-opening the cart shows the same items; `localStorage.cart` is unchanged.
-- **Covered by:** BD-036, BD-059
+- **Covered by:** BD-047, BD-070
 
 ### 3.8 About & Content
 
-#### FR-ABOUT: About page explains the QA Sphere demo purpose
+#### ABOUT: About explains the demo purpose
 
 - **Priority:** Low
 - **Description:** The About page shall present the Bistro Delivery introduction, a featured image,
@@ -341,11 +345,11 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - Heading reads "Welcome to Bistro Delivery".
   - Copy states the app is a QA Sphere demo and links to qasphere.com.
   - The featured image renders; copy is free of obvious errors.
-- **Covered by:** BD-037, BD-038, BD-039, BD-040, BD-041
+- **Covered by:** BD-048, BD-049, BD-050, BD-051, BD-052
 
 ### 3.9 Persistence & State
 
-#### FR-PERSIST: Cart persists across reloads, navigation, and sessions
+#### PERSIST: Cart persists across sessions
 
 - **Priority:** High
 - **Description:** Cart contents shall persist to `localStorage` under the `cart` key and survive
@@ -354,9 +358,9 @@ requirements too, but is exercised mainly through manual/visual test cases.
   - Cart survives a full page reload.
   - Cart survives navigation between Home, Menu, and About.
   - Cart state is stored as a JSON array of `{ id, quantity }` under `localStorage.cart`.
-- **Covered by:** BD-042, BD-043, BD-044, BD-060
+- **Covered by:** BD-053, BD-054, BD-055, BD-071
 
-#### FR-HYDRATE: Malformed stored cart data resets safely
+#### HYDRATE: Malformed cart data resets safely
 
 - **Priority:** Low
 - **Description:** If the stored cart data is malformed or not an array, the app shall reset the
@@ -364,44 +368,44 @@ requirements too, but is exercised mainly through manual/visual test cases.
 - **Acceptance criteria:**
   - Malformed `localStorage.cart` results in an empty cart (badge 0).
   - No uncaught error occurs during hydration.
-- **Covered by:** BD-045
+- **Covered by:** BD-056
 
 ---
 
 ## 4. Traceability matrix
 
-| Requirement   | Priority | Covered by                             |
-| ------------- | -------- | -------------------------------------- |
-| FR-NAV        | High     | BD-001, BD-006, BD-046                 |
-| FR-LOGO       | Medium   | BD-002                                 |
-| FR-MENULINK   | Medium   | BD-003                                 |
-| FR-FOOTER     | Low      | BD-004                                 |
-| FR-TRANSITION | Low      | BD-005                                 |
-| FR-RESPONSIVE | High     | BD-007, BD-008, BD-009                 |
-| FR-MOBILE     | Medium   | BD-010, BD-011                         |
-| FR-MENU       | High     | BD-012                                 |
-| FR-TABS       | High     | BD-013, BD-047                         |
-| FR-CARD       | High     | BD-014, BD-048                         |
-| FR-IMAGE      | Medium   | BD-015                                 |
-| FR-ANIM       | Low      | BD-016                                 |
-| FR-ADD        | Critical | BD-017, BD-050                         |
-| FR-BADGE      | High     | BD-018, BD-049                         |
-| FR-TOTAL      | Critical | BD-019, BD-051                         |
-| FR-MODAL      | Medium   | BD-020                                 |
-| FR-EMPTY      | Medium   | BD-021                                 |
-| FR-QTY        | High     | BD-022, BD-052                         |
-| FR-ZERO       | High     | BD-023, BD-024, BD-053                 |
-| FR-NEG        | Medium   | BD-025                                 |
-| FR-REMOVE     | High     | BD-026, BD-054                         |
-| FR-GUARD      | High     | BD-027, BD-055                         |
-| FR-SUMMARY    | High     | BD-028, BD-029, BD-056                 |
-| FR-FORM       | High     | BD-030, BD-035                         |
-| FR-PAYMENT    | Medium   | BD-031                                 |
-| FR-ORDER      | Critical | BD-032, BD-033, BD-034, BD-057, BD-058 |
-| FR-NOCLEAR    | Medium   | BD-036, BD-059                         |
-| FR-ABOUT      | Low      | BD-037, BD-038, BD-039, BD-040, BD-041 |
-| FR-PERSIST    | High     | BD-042, BD-043, BD-044, BD-060         |
-| FR-HYDRATE    | Low      | BD-045                                 |
+| Requirement | Priority | Covered by                             |
+| ----------- | -------- | -------------------------------------- |
+| NAV         | High     | BD-001, BD-006, BD-057                 |
+| LOGO        | Medium   | BD-002                                 |
+| MENULINK    | Medium   | BD-003                                 |
+| FOOTER      | Low      | BD-004                                 |
+| TRANSITION  | Low      | BD-005                                 |
+| RESPONSIVE  | High     | BD-007, BD-008, BD-009                 |
+| MOBILE      | Medium   | BD-010, BD-011                         |
+| MENU        | High     | BD-012                                 |
+| TABS        | High     | BD-013, BD-058                         |
+| CARD        | High     | BD-017, BD-059                         |
+| IMAGE       | Medium   | BD-018                                 |
+| ANIM        | Low      | BD-019                                 |
+| ADD         | Critical | BD-020, BD-061                         |
+| BADGE       | High     | BD-024, BD-060                         |
+| TOTAL       | Critical | BD-025, BD-062                         |
+| MODAL       | Medium   | BD-026                                 |
+| EMPTY       | Medium   | BD-027                                 |
+| QTY         | High     | BD-028, BD-063                         |
+| ZERO        | High     | BD-032, BD-033, BD-064                 |
+| NEG         | Medium   | BD-034                                 |
+| REMOVE      | High     | BD-035, BD-065                         |
+| GUARD       | High     | BD-036, BD-066                         |
+| SUMMARY     | High     | BD-037, BD-038, BD-067                 |
+| FORM        | High     | BD-039, BD-046                         |
+| PAYMENT     | Medium   | BD-040                                 |
+| ORDER       | Critical | BD-041, BD-044, BD-045, BD-068, BD-069 |
+| NOCLEAR     | Medium   | BD-047, BD-070                         |
+| ABOUT       | Low      | BD-048, BD-049, BD-050, BD-051, BD-052 |
+| PERSIST     | High     | BD-053, BD-054, BD-055, BD-071         |
+| HYDRATE     | Low      | BD-056                                 |
 
 ## 5. Revision history
 
