@@ -32,13 +32,12 @@ const config: PlaywrightTestConfig = {
 	/* Retry on CI only */
 	retries: process.env.CI ? 1 : 0,
 
-	/* Opt out of parallel tests on CI: process.env.CI ? 1 : undefined */
+	/* Serial on purpose: be gentle on the shared live demo and keep the
+	   per-origin localStorage cart state deterministic across tests. */
 	workers: 1,
 
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
-	// reporter: 'html',
 	reporter: [
-		['dot'],
 		['line'],
 		['html', { open: 'never' }],
 		['junit', { outputFile: './junit-results/results.xml' }],
@@ -51,7 +50,9 @@ const config: PlaywrightTestConfig = {
 		/* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
 		actionTimeout: 3000,
 
-		/* Base URL to use in actions like `await page.goto('/')`. */
+		/* Informational only: navigations deliberately concatenate DEMO_BASE_URL
+		   because the app lives under the /bistro subpath (a relative goto('/')
+		   would resolve to the origin root). */
 		baseURL: process.env.DEMO_BASE_URL,
 
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */

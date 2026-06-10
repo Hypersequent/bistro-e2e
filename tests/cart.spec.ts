@@ -13,6 +13,9 @@ test('BD-049: Add-to-cart increments the badge by total quantity', async ({ page
 	const menu = new Menu(page)
 	const cart = new Cart(page)
 
+	// Deliberately inline (not the SS-1 helper): here the badge increments ARE
+	// the behavior under test, not just precondition verifications.
+
 	// Step 1 — Add Cheese Pizza ×1, Hot Pastrami ×2: badge reads 3
 	await menu.addToCart('Cheese Pizza')
 	await menu.addToCart('Hot Pastrami')

@@ -26,6 +26,10 @@ export class Cart {
 	 * `display: none`) — the previous suite papered over this with a 1s sleep.
 	 * Instead, retry without sleeps: if the modal wedges, reload (the cart
 	 * itself persists in localStorage) and toggle it again.
+	 *
+	 * NB: in tests using seedKnownOrder, the reload re-applies the seed and
+	 * discards in-test cart mutations — only call open() before mutating the
+	 * cart in those tests.
 	 */
 	async open() {
 		await expect(async () => {

@@ -11,10 +11,6 @@ export class Welcome {
 		this.heroHeading = page.locator('.hero1 h1')
 	}
 
-	async goto() {
-		await this.page.goto(process.env.DEMO_BASE_URL + '/')
-	}
-
 	navLink(name: NavLinkName): Locator {
 		return this.page.locator('nav').getByRole('link', { name, exact: true })
 	}

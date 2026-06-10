@@ -1,4 +1,5 @@
 import { expect, Page } from '@playwright/test'
+import { Cart } from '../tests/pageobjects/cart'
 
 /** Shape the app persists under the `cart` localStorage key. */
 export interface CartItem {
@@ -24,7 +25,7 @@ export async function openWithEmptyCart(page: Page) {
 	await page.goto(process.env.DEMO_BASE_URL + '/')
 	await page.evaluate(() => localStorage.removeItem('cart'))
 	await page.reload()
-	await expect(page.locator('.my-cart-badge')).toHaveText('0')
+	await expect(new Cart(page).badge).toHaveText('0')
 }
 
 /**
