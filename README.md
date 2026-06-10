@@ -2,6 +2,25 @@
 
 This repository contains end-to-end tests for [Bistro Delivery](https://github.com/hypersequent/bistro), implemented using [Playwright](https://playwright.dev/).
 
+The suite implements the **15 automated test cases `BD-046…BD-060`** planned in
+[`food-delivery-demo/docs/AUTOMATED.md`](https://github.com/Hypersequent/food-delivery-demo/blob/main/docs/AUTOMATED.md)
+(see also [`CONTEXT.md`](https://github.com/Hypersequent/food-delivery-demo/blob/main/docs/CONTEXT.md) and
+[`MANUAL.md`](https://github.com/Hypersequent/food-delivery-demo/blob/main/docs/MANUAL.md)). Every test
+title starts with its `BD-###:` marker so [qas-cli](https://github.com/Hypersequent/qas-cli) can match
+uploaded results to the QA Sphere test cases:
+
+| Spec file                   | Cases                  |
+| --------------------------- | ---------------------- |
+| `tests/navigation.spec.ts`  | BD-046                 |
+| `tests/menu.spec.ts`        | BD-047, BD-048         |
+| `tests/cart.spec.ts`        | BD-049, BD-050, BD-051 |
+| `tests/quantity.spec.ts`    | BD-052, BD-053, BD-054 |
+| `tests/checkout.spec.ts`    | BD-055, BD-056         |
+| `tests/order.spec.ts`       | BD-057, BD-058, BD-059 |
+| `tests/persistence.spec.ts` | BD-060                 |
+
+Tests run against the live demo (`DEMO_BASE_URL`, default `https://hypersequent.github.io/bistro/`).
+
 Prerequisites: Node.js 20+ (with npm)
 
 ## Getting Started
