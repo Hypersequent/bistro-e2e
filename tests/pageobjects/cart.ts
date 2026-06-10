@@ -1,68 +1,80 @@
-import { Locator, Page } from '@playwright/test'
-import { z } from 'zod'
-import { PriceSchema } from './menu'
+import { expect, Locator, Page } from '@playwright/test'
 
 export class Cart {
-	page: Page
-	cartButton: Locator
-	closeCartButton: Locator
-	checkoutButton: Locator
+	readonly page: Page
+	readonly icon: Locator
+	readonly badge: Locator
+	readonly modal: Locator
+	/** One row per cart line inside the "My cart" modal. */
+	readonly lines: Locator
+	readonly total: Locator
+	readonly checkoutButton: Locator
 
 	constructor(page: Page) {
 		this.page = page
-		this.cartButton = page.locator(`div.my-cart-icon`)
-		this.closeCartButton = page.locator(`#cart button[data-dismiss="modal"]`).first()
-		this.checkoutButton = page.locator(`#cart a[href$="/checkout"]`)
+		this.icon = page.locator('.my-cart-icon')
+		this.badge = page.locator('.my-cart-badge')
+		this.modal = page.locator('#cart')
+		this.lines = this.modal.locator('.row.border-bottom')
+		this.total = this.modal.locator('[data-testid="cartTotal"]')
+		this.checkoutButton = this.modal.locator('a[href$="/checkout"]')
 	}
 
-	async openCart() {
-		await this.cartButton.click()
+	/**
+	 * Opens the "My cart" modal. The icon click can race the Bootstrap fade
+	 * transition and wedge the modal half-toggled (`show` class while
+	 * `display: none`) — the previous suite papered over this with a 1s sleep.
+	 * Instead, retry without sleeps: if the modal wedges, reload (the cart
+	 * itself persists in localStorage) and toggle it again.
+	 */
+	async open() {
+		await expect(async () => {
+			if (!(await this.modal.isVisible())) {
+				const wedged = await this.modal.evaluate((el) => el.classList.contains('show'))
+				if (wedged) {
+					await this.page.reload()
+				}
+				await this.icon.click()
+			}
+			await expect(this.modal).toBeVisible({ timeout: 1500 })
+		}).toPass({ timeout: 20_000 })
 	}
 
-	async closeCart() {
-		await this.closeCartButton.click()
+	line(title: string): Locator {
+		return this.lines.filter({ hasText: title })
+	}
+
+	quantityInput(title: string): Locator {
+		return this.line(title).locator('input[type="number"]')
+	}
+
+	/** The line-total cell (first plain `.col` in the row). */
+	lineTotal(title: string): Locator {
+		return this.line(title).locator('div.col').first()
+	}
+
+	removeButton(title: string): Locator {
+		return this.line(title).getByRole('button', { name: 'X' })
+	}
+
+	/**
+	 * Sets a line quantity. The app commits quantity edits on the `change`
+	 * event, so blur after filling to fire it (like a user clicking away).
+	 */
+	async setQuantity(title: string, value: string) {
+		const input = this.quantityInput(title)
+		await input.fill(value)
+		await input.blur()
 	}
 
 	async checkout() {
-		await this.checkoutButton.click()
+		// Re-open the modal if the fade-transition race closed it (see open()).
+		await expect(async () => {
+			if (!(await this.checkoutButton.isVisible())) {
+				await this.open()
+			}
+			await this.checkoutButton.click({ timeout: 2000 })
+		}).toPass({ timeout: 15_000 })
 		await this.page.waitForURL(process.env.DEMO_BASE_URL + '/checkout')
 	}
-
-	async getCartItems() {
-		const rows = await this.page.locator(`#cart div.row.border-bottom`).all()
-
-		const items = await Promise.all(
-			rows.map(async (row) => {
-				const name = await row.locator('div:nth-child(2)').innerText()
-				const amount = await row.locator('div:nth-child(4)').innerText()
-
-				return { name, amount }
-			})
-		)
-
-		const total = await this.page.locator(`#cart div[data-testid='cartTotal']`).innerText()
-
-		return CartResponseSchema.parse({
-			items,
-			total,
-		})
-	}
-
-	async removeCartItem(idx: number) {
-		const rows = await this.page.locator(`#cart div.row.border-bottom`).all()
-		if (idx >= rows.length) {
-			throw new Error(`Cart item with index ${idx} not found`)
-		}
-		await rows[idx].locator('button').click()
-	}
 }
-
-export const CartItemSchema = z.object({
-	name: z.string().min(1),
-	amount: PriceSchema,
-})
-
-export const CartResponseSchema = z.object({
-	items: z.array(CartItemSchema),
-	total: PriceSchema,
-})

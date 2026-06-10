@@ -48,10 +48,8 @@
 		"typescript": "^5.5.3"
 	},
 	"dependencies": {
-		"@faker-js/faker": "^8.4.1",
 		"dotenv": "^16.4.5",
-		"rimraf": "^6.0.1",
-		"zod": "^3.22.4"
+		"rimraf": "^6.0.1"
 	},
 	"lint-staged": {
 		"*.{js,ts,svelte}": [

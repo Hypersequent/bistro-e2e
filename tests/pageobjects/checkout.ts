@@ -1,57 +1,42 @@
-import { Locator, Page, expect } from '@playwright/test'
-import { CartResponseSchema } from './cart'
+import { Locator, Page } from '@playwright/test'
 
-export const paymentMethods = ['Cash on Delivery', 'Card Payment on Delivery']
+export type PaymentMethod = 'Cash on Delivery' | 'Card Payment on Delivery'
 
 export class Checkout {
-	page: Page
-	nameInput: Locator
-	emailInput: Locator
-	paymentMethodSelect: Locator
-	placeOrderButton: Locator
+	readonly page: Page
+	readonly nameInput: Locator
+	readonly addressInput: Locator
+	readonly paymentSelect: Locator
+	readonly placeOrderButton: Locator
+	/** Order-summary table rows (item lines + the Total row). */
+	readonly summaryRows: Locator
+	readonly total: Locator
+	readonly successAlert: Locator
+	readonly successHeading: Locator
 
 	constructor(page: Page) {
 		this.page = page
-		this.nameInput = page.locator(`#customerName`)
-		this.emailInput = page.locator(`#customerAddress`)
-		this.paymentMethodSelect = page.locator(`#paymentMethod`)
-		this.placeOrderButton = page.locator(`form button[type="submit"]`)
+		this.nameInput = page.locator('#customerName')
+		this.addressInput = page.locator('#customerAddress')
+		this.paymentSelect = page.locator('#paymentMethod')
+		this.placeOrderButton = page.getByRole('button', { name: 'Place Order' })
+		this.summaryRows = page.locator('form table tbody tr')
+		this.total = page.locator('[data-testid="cartTotal"]')
+		this.successAlert = page.locator('.alert-success')
+		this.successHeading = this.successAlert.locator('.alert-heading')
 	}
 
-	async getOrderItems() {
-		expect(this.page.url()).toBe(process.env.DEMO_BASE_URL + '/checkout')
-		await new Promise((resolve) => setTimeout(resolve, 500))
-
-		const rows = await this.page.locator(`table > tbody > tr`).all()
-
-		const items = await Promise.all(
-			rows.slice(0, rows.length - 1).map(async (row) => {
-				const name = await row.locator('td:nth-child(2)').innerText()
-				const amount = await row.locator('td:nth-child(4)').innerText()
-
-				return { name, amount }
-			})
-		)
-
-		const total = await this.page
-			.locator(`table.table > tbody > tr:last-of-type td:nth-child(4)`)
-			.innerText()
-
-		return CartResponseSchema.parse({
-			items,
-			total,
-		})
+	summaryRow(title: string): Locator {
+		return this.summaryRows.filter({ hasText: title })
 	}
 
-	async getNameInput() {
-		return this.nameInput
+	/** The Count cell of an order-summary row. */
+	rowCount(title: string): Locator {
+		return this.summaryRow(title).locator('td').nth(2)
 	}
 
-	async getEmailInput() {
-		return this.emailInput
-	}
-
-	async getPaymentMethodSelect() {
-		return this.paymentMethodSelect
+	/** The Total Price cell of an order-summary row. */
+	rowTotal(title: string): Locator {
+		return this.summaryRow(title).locator('td').nth(3)
 	}
 }
