@@ -67,8 +67,8 @@ npm run test-head         # Run tests in headed mode
 2. Upload results:
 
    ```bash
-   npx qas-cli junit-upload --attachments junit-results/results.xml                 # For JUnit XML
-   npx qas-cli playwright-json-upload --attachments playwright-report/results.json  # For Playwright JSON
+   npx qas-cli junit-upload --attachments junit-results/results.xml      # For JUnit XML
+   npx qas-cli playwright-json-upload --attachments ./test-results.json  # For Playwright JSON
    ```
 
 # Additional Commands

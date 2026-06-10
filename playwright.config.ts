@@ -42,7 +42,7 @@ const config: PlaywrightTestConfig = {
 		['line'],
 		['html', { open: 'never' }],
 		['junit', { outputFile: './junit-results/results.xml' }],
-		['json', { outputFile: './playwright-report/results.json' }],
+		['json', { outputFile: './test-results.json' }], // path per AUTOMATED.md §10.4 (qas-cli playwright-json-upload)
 	],
 
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

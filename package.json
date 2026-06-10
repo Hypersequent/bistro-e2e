@@ -5,7 +5,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"clean": "rimraf allure-results && rimraf allure-report && rimraf test-results && rimraf playwright-report && rimraf junit-results && rimraf lighthouse",
+		"clean": "rimraf allure-results && rimraf allure-report && rimraf test-results && rimraf test-results.json && rimraf playwright-report && rimraf junit-results && rimraf lighthouse",
 		"format": "prettier --write .",
 		"install-deps": "npx playwright install-deps",
 		"lint": "prettier --check . && eslint .",

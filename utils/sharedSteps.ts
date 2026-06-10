@@ -40,5 +40,7 @@ export async function fillCheckoutFormAndPlaceOrder(
 	await checkout.addressInput.fill(address)
 	await expect(checkout.addressInput).toHaveValue(address)
 	await checkout.paymentSelect.selectOption({ label: paymentMethod })
+	// The options carry no value attribute, so the select's value equals the label.
+	await expect(checkout.paymentSelect).toHaveValue(paymentMethod)
 	await checkout.placeOrderButton.click()
 }
