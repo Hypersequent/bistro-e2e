@@ -105,10 +105,13 @@ the commands below via `npx qasphere …`.
 qas-cli matches a result to a test case by finding a `<project code>-<sequence>` marker in the
 `test(...)` title, using the pattern `/\b([A-Za-z0-9]{1,5})-(\d{3,})\b/`. Two consequences:
 
-- The marker must be in the **`test(...)` title** — a marker on a `describe(...)` block is not read.
 - The sequence needs **at least three digits**, so it must be zero-padded: test case `BD-57` in QA
   Sphere is written `BD-057` in the test title. The padding is stripped when matching, so `BD-057`
   resolves to sequence 57.
+- Keep the marker in the **`test(...)` title**. `playwright-json-upload` reads only the spec title,
+  so a marker on the enclosing `describe(...)` is not seen. `junit-upload` does see it, because
+  Playwright's JUnit reporter writes the name as `describe › test`; marking `test(...)` works for
+  both.
 
 ```ts
 test('BD-057: Navbar links navigate to the correct routes', async ({ page }) => {
