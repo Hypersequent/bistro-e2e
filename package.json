@@ -1,15 +1,16 @@
 {
-	"name": "bistrot-e2e",
+	"name": "bistro-e2e",
 	"type": "module",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"clean": "rimraf allure-results && rimraf allure-report && rimraf test-results && rimraf playwright-report && rimraf junit-results && rimraf lighthouse",
+		"clean": "rimraf allure-results && rimraf allure-report && rimraf test-results && rimraf playwright-report && rimraf junit-results && rimraf lighthouse && rimraf test-results.json",
 		"format": "prettier --write .",
 		"install-deps": "npx playwright install-deps",
 		"lint": "prettier --check . && eslint .",
 		"play-report": "npx playwright show-report",
+		"upload": "qasphere playwright-json-upload --project-code BD --attachments ./test-results.json",
 		"prepare": "husky",
 		"reinstall": "npx playwright install",
 		"test": "npm run chromium",
@@ -44,14 +45,13 @@
 		"husky": "^9.0.11",
 		"lint-staged": "^15.2.7",
 		"prettier": "^3.3.3",
+		"qas-cli": "0.10.1",
 		"tslib": "^2.6.3",
 		"typescript": "^5.5.3"
 	},
 	"dependencies": {
-		"@faker-js/faker": "^8.4.1",
 		"dotenv": "^16.4.5",
-		"rimraf": "^6.0.1",
-		"zod": "^3.22.4"
+		"rimraf": "^6.0.1"
 	},
 	"lint-staged": {
 		"*.{js,ts,svelte}": [

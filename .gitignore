@@ -15,3 +15,5 @@ allure-results/
 junit-results/
 playwright-report/
 .qaspherecli
+
+test-results.json

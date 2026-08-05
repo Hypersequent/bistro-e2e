@@ -1,139 +1,67 @@
 import { expect, Locator, Page } from '@playwright/test'
-import { z } from 'zod'
+import { Category, MenuItem } from '../fixtures/menuData'
 
-export type Tab = 'pizza' | 'drinks' | 'desserts'
+const panelIds: Record<Category, string> = {
+	pizzas: 'pizzaMenu',
+	drinks: 'drinksMenu',
+	desserts: 'dessertsMenu',
+}
+
+const tabNames: Record<Category, string> = {
+	pizzas: 'Pizzas',
+	drinks: 'Drinks',
+	desserts: 'Desserts',
+}
 
 export class Menu {
-	page: Page
-	navbarItems: Locator
-	tab: Locator
+	readonly page: Page
+	readonly activeTabs: Locator
 
 	constructor(page: Page) {
 		this.page = page
-		this.navbarItems = page.locator('nav ul > li')
-		this.tab = page.locator(`div.buttons-container`)
+		this.activeTabs = page.locator('.buttons-container a.button--is-active')
 	}
 
-	async goto() {
-		await this.page.goto(process.env.DEMO_BASE_URL + '/#menu')
-		// Wait for the navbar active state to update based on scroll position
-		await this.page.waitForTimeout(100)
+	tab(category: Category): Locator {
+		return this.page.locator(`a.button[data-target="${panelIds[category]}"]`, {
+			hasText: tabNames[category],
+		})
 	}
 
-	async getNavbarItems() {
-		const items = await this.navbarItems.all()
-		expect(items).toHaveLength(3)
+	panel(category: Category): Locator {
+		return this.page.locator(`#${panelIds[category]}`)
+	}
 
-		const linkItemsObj = await Promise.all(
-			items.map(async (item) => {
-				const text = (await item.innerText()).trim()
-				const isActive = (await item.getAttribute('class'))?.includes('active') ?? false
+	async switchTo(category: Category) {
+		await this.tab(category).click()
+		await expect(this.panel(category)).toHaveClass(/menu--is-visible/)
+	}
 
-				return {
-					text,
-					isActive,
-				}
+	card(category: Category, title: string): Locator {
+		return this.panel(category)
+			.locator('.item')
+			.filter({
+				has: this.page.getByRole('heading', { name: title, exact: true }),
 			})
-		)
-
-		return linkItemsObj
 	}
 
-	async getTabs() {
-		const children = await this.tab.locator('a').all()
-
-		const tabs = await Promise.all(
-			children.map(async (child) => {
-				const text = (await child.innerText()).trim()
-				const isActive = ((await child.getAttribute('class')) || '').includes('is-active')
-
-				return { text, isActive }
-			})
-		)
-
-		return tabs
-	}
-
-	async switchTab(tab: Tab) {
-		await this.page.locator(`a[data-target='${tab}Menu']`).click()
-	}
-
-	async getPizzaMenu() {
-		await this.switchTab('pizza')
-		const items = await this.page.evaluate(getPizzaItems)
-		return PizzaMenuSchema.parse(items)
-	}
-
-	async getOtherMenu(item: 'drinks' | 'desserts') {
-		await this.switchTab(item)
-		const items = await this.page.evaluate(getOtherItems)
-		return OtherMenuSchema.parse(items)
-	}
-
-	async addMenuItemToCart(idx: number) {
-		const item = this.page.locator(
-			`section#menu > div > div.menu--is-visible > div.row:nth-of-type(${idx + 1})`
-		)
-		await item.locator('button').click()
-	}
-}
-
-export const PriceSchema = z
-	.string()
-	.regex(/^\$\d+$/)
-	.transform((val) => Number.parseInt(val.slice(1), 10))
-
-export const PizzaItemSchema = z.object({
-	name: z.string().min(1),
-	image: z.string().min(1),
-	description: z.string().min(1),
-	price: PriceSchema,
-})
-
-export const PizzaMenuSchema = z.array(PizzaItemSchema).min(1)
-
-function getPizzaItems() {
-	const items = Array.from(
-		document.querySelectorAll(`section#menu > div > div.menu--is-visible > div.row`)
-	)
-
-	return items.map((item) => {
-		const name = item.querySelector('h3.item__title')?.textContent || ''
-		const price = item.querySelector('span.item__price')?.textContent || ''
-		const description = item.querySelector('p.item__description')?.textContent || ''
-		const image = item.querySelector('img')?.getAttribute('src') || ''
-
-		return {
-			name,
-			image,
-			description,
-			price,
+	async addToCart(category: Category, title: string, times = 1) {
+		await this.switchTo(category)
+		const button = this.card(category, title).locator('.my-cart-btn')
+		for (let i = 0; i < times; i++) {
+			await button.click()
 		}
-	})
-}
+	}
 
-export const OtherItemSchema = z.object({
-	name: z.string().min(1),
-	description: z.string().min(1),
-	price: PriceSchema,
-})
+	async readItems(category: Category): Promise<MenuItem[]> {
+		await this.switchTo(category)
+		const panel = this.panel(category)
+		const titles = await panel.locator('h3.item__title').allTextContents()
+		const prices = await panel.locator('span.item__price').allTextContents()
 
-export const OtherMenuSchema = z.array(OtherItemSchema).min(1)
-
-function getOtherItems() {
-	const items = Array.from(
-		document.querySelectorAll(`section#menu > div > div.menu--is-visible > div.row`)
-	)
-
-	return items.map((item) => {
-		const name = item.querySelector('h3.item__title')?.textContent || ''
-		const price = item.querySelector('span.item__price')?.textContent || ''
-		const description = item.querySelector('p.item__description')?.textContent || ''
-
-		return {
-			name,
-			description,
-			price,
-		}
-	})
+		return titles.map((title, index) => ({
+			title: title.trim(),
+			price: Number(prices[index].replace('$', '')),
+		}))
+	}
 }
