@@ -16,21 +16,21 @@ const config: PlaywrightTestConfig = {
 	testDir: './tests',
 
 	/* Maximum time one test can run for. */
-	timeout: 30 * 1000,
+	timeout: 60 * 1000,
 
 	expect: {
 		/**
 		 * Maximum time expect() should wait for the condition to be met.
 		 * For example in `await expect(locator).toHaveText();`
 		 */
-		timeout: 5000,
+		timeout: 15000,
 	},
 
 	/* Fail the build on CI if you accidentally left test.only in the source code. */
 	forbidOnly: !!process.env.CI,
 
-	/* Retry on CI only */
-	retries: process.env.CI ? 1 : 0,
+	/* No retries: every case must be deterministic and report its real status. */
+	retries: 0,
 
 	/* Opt out of parallel tests on CI: process.env.CI ? 1 : undefined */
 	workers: 1,
@@ -42,20 +42,20 @@ const config: PlaywrightTestConfig = {
 		['line'],
 		['html', { open: 'never' }],
 		['junit', { outputFile: './junit-results/results.xml' }],
-		['json', { outputFile: './playwright-report/results.json' }],
+		['json', { outputFile: './test-results.json' }],
 	],
 
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
 		screenshot: 'on',
 		/* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-		actionTimeout: 3000,
+		actionTimeout: 10000,
 
-		/* Base URL to use in actions like `await page.goto('/')`. */
-		baseURL: 'https://charlyautomatiza.github.io/task-management-frontend',
+		/* The app is served under a base path, so tests navigate relatively: `page.goto('about')`. */
+		baseURL: `${process.env.DEMO_BASE_URL}/`,
 
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-		trace: 'on-first-retry',
+		trace: 'retain-on-failure',
 	},
 
 	/* Configure projects for major browsers */

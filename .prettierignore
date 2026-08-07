@@ -4,3 +4,4 @@ package-lock.json
 yarn.lock
 bun.lockb
 test-results
+test-results.json

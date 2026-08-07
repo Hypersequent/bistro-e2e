@@ -1,52 +1,49 @@
 import { expect, Locator, Page } from '@playwright/test'
+import { CartEntry } from '../fixtures/menuData'
 
 export class Welcome {
-	page: Page
-	heading: Locator
-	body: Locator
-	navbarItems: Locator
-	gotoMenuButton: Locator
+	readonly page: Page
+	readonly brandLink: Locator
+	readonly welcomeLink: Locator
+	readonly menuLink: Locator
+	readonly aboutLink: Locator
+	readonly heroHeading: Locator
+	readonly menuSection: Locator
 
 	constructor(page: Page) {
 		this.page = page
-		this.heading = page.locator('h1')
-		this.body = page.locator('div.hero1 p')
-		this.navbarItems = page.locator('nav ul > li')
-		this.gotoMenuButton = page.locator('a[href="#menu"]')
+		this.brandLink = page.locator('a.navbar-brand')
+		this.welcomeLink = page.getByRole('link', { name: 'Welcome', exact: true })
+		this.menuLink = page.getByRole('link', { name: "Today's Menu", exact: true })
+		this.aboutLink = page.getByRole('link', { name: 'About us', exact: true })
+		this.heroHeading = page.getByRole('heading', { name: 'Bistro Delivery', exact: true })
+		this.menuSection = page.locator('#menu')
 	}
 
-	async goto() {
-		await this.page.goto(process.env.DEMO_BASE_URL + '/')
+	async open() {
+		await this.page.goto('.')
+		await this.waitUntilReady()
 	}
 
-	async getHeading() {
-		return (await this.heading.innerText()).trim()
+	/**
+	 * The page is prerendered, so the markup is there before the handlers are.
+	 * The tab script marks the pizza panel visible as soon as it runs.
+	 */
+	async waitUntilReady() {
+		await expect(this.page.locator('#pizzaMenu')).toHaveClass(/menu--is-visible/)
 	}
 
-	async getBody() {
-		return (await this.body.innerText()).trim()
-	}
-
-	async getNavbarItems() {
-		const items = await this.navbarItems.all()
-		expect(items).toHaveLength(3)
-
-		const linkItemsObj = await Promise.all(
-			items.map(async (item) => {
-				const text = (await item.innerText()).trim()
-				const isActive = (await item.getAttribute('class'))?.includes('active') ?? false
-
-				return {
-					text,
-					isActive,
-				}
-			})
+	async seedCart(entries: CartEntry[]) {
+		await this.page.evaluate(
+			(items) => localStorage.setItem('cart', JSON.stringify(items)),
+			entries
 		)
-
-		return linkItemsObj
+		await this.page.reload()
+		await this.waitUntilReady()
 	}
 
-	async getGotoMenuButton() {
-		return (await this.gotoMenuButton.innerText()).trim()
+	async readStoredCart(): Promise<CartEntry[]> {
+		const raw = await this.page.evaluate(() => localStorage.getItem('cart'))
+		return JSON.parse(raw ?? '[]')
 	}
 }
